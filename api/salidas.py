@@ -16,7 +16,6 @@ app.add_middleware(
 )
 
 class Vuelo(BaseModel):
-    aerolinea: str
     vuelo: str
     destino: str
     hora: str
@@ -39,7 +38,6 @@ def obtener_vuelos():
                 hora=columnas[0].text.strip(),
                 destino=columnas[1].text.strip(),
                 vuelo=columnas[2].text.strip(),
-                aerolinea=columnas[3].text.strip(),
                 puerta=columnas[4].text.strip(),
                 estado=columnas[5].text.strip(),
             )
