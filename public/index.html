@@ -55,10 +55,22 @@
   <script>
     async function cargarVuelos() {
       try {
-        const respuesta = await fetch('https://api-vuelos.vercel.app/salidas');
+        const respuesta = await fetch('https://api-vuelos.vercel.app/salidas', {
+          mode: 'cors'
+        });
+
+        if (!respuesta.ok) {
+          throw new Error(`HTTP ${respuesta.status}`);
+        }
+
         const datos = await respuesta.json();
         const cuerpoTabla = document.querySelector('#tabla-vuelos tbody');
         cuerpoTabla.innerHTML = '';
+
+        if (!Array.isArray(datos)) {
+          console.error('Formato inesperado:', datos);
+          return;
+        }
 
         datos.forEach(vuelo => {
           const fila = document.createElement('tr');
@@ -74,12 +86,12 @@
         });
       } catch (error) {
         console.error('Error al cargar los datos de vuelos:', error);
+        const cuerpoTabla = document.querySelector('#tabla-vuelos tbody');
+        cuerpoTabla.innerHTML = `<tr><td colspan="6">Error al cargar datos: ${error.message}</td></tr>`;
       }
     }
 
-    // Cargar datos al iniciar
     cargarVuelos();
-    // Refrescar cada 60 segundos
     setInterval(cargarVuelos, 60000);
   </script>
 </body>
