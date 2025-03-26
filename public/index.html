@@ -58,13 +58,13 @@
     La Aurora International Airport<br>Aeropuerto Internacional La Aurora
   </div>
 
-<header style="display: flex; justify-content: space-between; align-items: center; padding: 0 20px;"><img src="images/icon_salidas.png" alt="Salidas" style="height: 40px; vertical-align: middle; margin-right: 10px;"> DEPARTURES - SALIDAS <span id="reloj" style="font-size: 2.5rem; font-weight: 900; color: white;" style="font-size: 2.5rem; font-weight: 900; color: white;"></span></header>
+<header style="display: flex; justify-content: space-between; align-items: center; padding: 0 20px;"><img src="images/icon_salidas.png" alt="Salidas" style="height: 40px; vertical-align: middle; margin-right: 10px;"> <span style="color: #f1c40f;">DEPARTURES - SALIDAS</span> <span id="reloj" style="font-size: 2.5rem; font-weight: 900; color:#f1c40f;" style="font-size: 2.5rem; font-weight: 900; color: white;"></span></header>
   <table id="tabla-vuelos">
     <thead>
       <tr>
         <th>Hora</th>
         <th>Destino</th>
-        <th style="min-width: 120px; text-align: left;">Vuelo</th>
+        <th style="color: #f1c40f;min-width: 120px; text-align: left;">Vuelo</th>
         <th>Puerta</th>
         <th>Embarque</th>
       </tr>
@@ -85,7 +85,7 @@
           fila.innerHTML = `
             <td>${vuelo.hora}</td>
             <td>${vuelo.destino}</td>
-            <td style="text-align: left; color: white; font-weight: bold;">${vuelo.vuelo}</td>
+            <td style="text-align: left; color: #f1c40f; font-weight: bold;">${vuelo.vuelo}</td>
             <td>${vuelo.puerta}</td>
             <td>${vuelo.estado}</td>
           `;
