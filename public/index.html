@@ -55,7 +55,7 @@
       <tr>
         <th>Hora</th>
         <th>Destino</th>
-        <th>Vuelo</th>
+        <th style="min-width: 120px; text-align: left;">Vuelo</th>
         <th>Puerta</th>
         <th>Embarque</th>
       </tr>
@@ -76,7 +76,7 @@
           fila.innerHTML = `
             <td>${vuelo.hora}</td>
             <td>${vuelo.destino}</td>
-            <td>${vuelo.vuelo}</td>
+            <td style="text-align: left; color: #f1c40f; font-weight: bold;">${vuelo.vuelo}</td>
             <td>${vuelo.puerta}</td>
             <td>${vuelo.estado}</td>
           `;
