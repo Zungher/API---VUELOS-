@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Salidas de Vuelos - API DGAC</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 2rem;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2rem;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    th, td {
+      padding: 1rem;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #007bff;
+      color: white;
+    }
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+  </style>
+</head>
+<body>
+  <h1>Salidas de Vuelos</h1>
+  <table id="tabla-vuelos">
+    <thead>
+      <tr>
+        <th>Aerolínea</th>
+        <th>Vuelo</th>
+        <th>Destino</th>
+        <th>Hora</th>
+        <th>Puerta</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    async function cargarVuelos() {
+      try {
+        const respuesta = await fetch('/salidas');
+        const datos = await respuesta.json();
+        const cuerpoTabla = document.querySelector('#tabla-vuelos tbody');
+        cuerpoTabla.innerHTML = '';
+
+        datos.forEach(vuelo => {
+          const fila = document.createElement('tr');
+          fila.innerHTML = `
+            <td>${vuelo.aerolinea}</td>
+            <td>${vuelo.vuelo}</td>
+            <td>${vuelo.destino}</td>
+            <td>${vuelo.hora}</td>
+            <td>${vuelo.puerta}</td>
+            <td>${vuelo.estado}</td>
+          `;
+          cuerpoTabla.appendChild(fila);
+        });
+      } catch (error) {
+        console.error('Error al cargar los datos de vuelos:', error);
+      }
+    }
+
+    // Cargar datos al iniciar
+    cargarVuelos();
+    // Refrescar cada 60 segundos
+    setInterval(cargarVuelos, 60000);
+  </script>
+</body>
+</html>
