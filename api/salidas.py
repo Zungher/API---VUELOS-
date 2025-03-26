@@ -30,16 +30,16 @@ def obtener_vuelos():
     soup = BeautifulSoup(response.content, "html.parser")
 
     vuelos = []
-    filas = soup.select("table tr")[1:]
+    filas = soup.select("table tr")[1:]  # saltamos el encabezado
 
     for fila in filas:
         columnas = fila.find_all("td")
         if len(columnas) == 6:
             vuelo = Vuelo(
-                aerolinea=columnas[0].text.strip(),
-                vuelo=columnas[1].text.strip(),
-                destino=columnas[2].text.strip(),
-                hora=columnas[3].text.strip(),
+                hora=columnas[0].text.strip(),
+                destino=columnas[1].text.strip(),
+                vuelo=columnas[2].text.strip(),
+                aerolinea=columnas[3].text.strip(),
                 puerta=columnas[4].text.strip(),
                 estado=columnas[5].text.strip(),
             )
