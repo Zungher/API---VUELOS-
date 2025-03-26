@@ -1,52 +1,63 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Salidas de Vuelos - API DGAC</title>
+  <title>Departures - Salidas</title>
+  <link rel="stylesheet" href="../css/jquery-1.11.1.min.js">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
       margin: 0;
-      padding: 2rem;
+      background-color: #111;
+      font-family: 'Courier New', Courier, monospace;
+      color: #f1c40f;
     }
-    h1 {
+    header {
+      background: #000;
+      padding: 10px;
       text-align: center;
-      color: #333;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #f1c40f;
+      letter-spacing: 2px;
     }
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 2rem;
-      background-color: #fff;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-top: 10px;
     }
     th, td {
-      padding: 1rem;
+      padding: 12px;
       text-align: center;
-      border-bottom: 1px solid #ddd;
+      border-bottom: 1px solid #333;
     }
     th {
-      background-color: #007bff;
-      color: white;
+      background-color: #222;
+      color: #f1c40f;
+      font-size: 1.1rem;
+    }
+    td {
+      color: #ecf0f1;
+      font-size: 1.3rem;
+    }
+    tr:nth-child(even) {
+      background-color: #1c1c1c;
     }
     tr:hover {
-      background-color: #f1f1f1;
+      background-color: #333;
     }
   </style>
 </head>
 <body>
-  <h1>Salidas de Vuelos</h1>
+  <header>✈️ DEPARTURES - SALIDAS</header>
   <table id="tabla-vuelos">
     <thead>
       <tr>
-        <th>Aerolínea</th>
-        <th>Vuelo</th>
-        <th>Destino</th>
         <th>Hora</th>
+        <th>Destino</th>
+        <th>Vuelo</th>
         <th>Puerta</th>
-        <th>Estado</th>
+        <th>Embarque</th>
       </tr>
     </thead>
     <tbody></tbody>
@@ -55,39 +66,24 @@
   <script>
     async function cargarVuelos() {
       try {
-        const respuesta = await fetch('https://api-vuelos.vercel.app/salidas', {
-          mode: 'cors'
-        });
-
-        if (!respuesta.ok) {
-          throw new Error(`HTTP ${respuesta.status}`);
-        }
-
+        const respuesta = await fetch("https://api-vuelos.vercel.app/salidas");
         const datos = await respuesta.json();
-        const cuerpoTabla = document.querySelector('#tabla-vuelos tbody');
-        cuerpoTabla.innerHTML = '';
-
-        if (!Array.isArray(datos)) {
-          console.error('Formato inesperado:', datos);
-          return;
-        }
+        const cuerpo = document.querySelector("#tabla-vuelos tbody");
+        cuerpo.innerHTML = "";
 
         datos.forEach(vuelo => {
-          const fila = document.createElement('tr');
+          const fila = document.createElement("tr");
           fila.innerHTML = `
-            <td>${vuelo.aerolinea}</td>
-            <td>${vuelo.vuelo}</td>
-            <td>${vuelo.destino}</td>
             <td>${vuelo.hora}</td>
+            <td>${vuelo.destino}</td>
+            <td>${vuelo.vuelo}</td>
             <td>${vuelo.puerta}</td>
             <td>${vuelo.estado}</td>
           `;
-          cuerpoTabla.appendChild(fila);
+          cuerpo.appendChild(fila);
         });
       } catch (error) {
-        console.error('Error al cargar los datos de vuelos:', error);
-        const cuerpoTabla = document.querySelector('#tabla-vuelos tbody');
-        cuerpoTabla.innerHTML = `<tr><td colspan="6">Error al cargar datos: ${error.message}</td></tr>`;
+        console.error("Error al cargar los datos:", error);
       }
     }
 
